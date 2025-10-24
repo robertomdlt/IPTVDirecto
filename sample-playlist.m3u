@@ -1,0 +1,37 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-id="espn.us" tvg-name="ESPN HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" group-title="Deportes",ESPN HD
+http://317711.solanaflix.com/live/TV-31137902/952994058555/112675.ts
+
+#EXTINF:-1 tvg-id="fox.us" tvg-name="FOX Sports" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Fox_Sports_Logo.svg" group-title="Deportes",FOX Sports
+http://317711.solanaflix.com/live/TV-31137902/952994058555/48504.ts
+
+#EXTINF:-1 tvg-id="discovery.us" tvg-name="Discovery Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/f1/2019_Discovery_logo.svg" group-title="Documentales",Discovery Channel
+https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/mpds/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.mpd
+
+#EXTINF:-1 tvg-id="natgeo.us" tvg-name="National Geographic" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/fc/Natgeologo.svg" group-title="Documentales",National Geographic
+https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8
+
+#EXTINF:-1 tvg-id="cnn.us" tvg-name="CNN" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" group-title="Noticias",CNN
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
+
+#EXTINF:-1 tvg-id="bbc.uk" tvg-name="BBC News" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/62/BBC_News_2019.svg" group-title="Noticias",BBC News
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="hbo.us" tvg-name="HBO" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/de/HBO_logo.svg" group-title="Películas",HBO
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
+
+#EXTINF:-1 tvg-id="netflix.us" tvg-name="Netflix Original" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" group-title="Películas",Netflix Original
+https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+
+#EXTINF:-1 tvg-id="cartoon.us" tvg-name="Cartoon Network" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg" group-title="Infantil",Cartoon Network
+https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8
+
+#EXTINF:-1 tvg-id="disney.us" tvg-name="Disney Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d2/2019_Disney_Channel_logo.svg" group-title="Infantil",Disney Channel
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+
+#EXTINF:-1 tvg-id="mtv.us" tvg-name="MTV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/68/MTV_2021_%28brand_version%29.svg" group-title="Entretenimiento",MTV
+https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
+
+#EXTINF:-1 tvg-id="comedy.us" tvg-name="Comedy Central" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/a/aa/Comedy_Central_2018.svg" group-title="Entretenimiento",Comedy Central
+https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8

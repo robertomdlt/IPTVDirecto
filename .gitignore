@@ -1,0 +1,34 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# LG webOS build files
+*.ipk
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Environment files
+.env
+.env.local

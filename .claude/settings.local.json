@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\workspaceAnd\\PruebaLg4\\videofijoproject"
+    ]
+  }
+}

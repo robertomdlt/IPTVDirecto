@@ -156,6 +156,60 @@
     text-align: center;
 }
 
+/* Playlist Selector Screen */
+.playlist-selector {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    z-index: 9997;
+}
+
+.selector-content {
+    width: 60%;
+    max-height: 80%;
+    background: var(--bg-surface);
+    padding: 48px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+}
+
+.selector-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.selector-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 24px;
+}
+
+.selector-footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-hint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 32px;
+    color: var(--text-secondary);
+}
+
 /* Video Player */
 .video-player {
     position: fixed;

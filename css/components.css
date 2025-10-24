@@ -80,6 +80,45 @@
     margin-top: 40px;
 }
 
+/* Playlist Items */
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+    border: 2px solid transparent;
+    background: var(--bg-primary);
+}
+
+.playlist-item.focused {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.playlist-icon {
+    font-size: 48px;
+    margin-right: 24px;
+}
+
+.playlist-info {
+    flex: 1;
+}
+
+.playlist-name {
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.playlist-url {
+    font-size: 28px;
+    color: var(--text-secondary);
+}
+
 /* Group Items */
 .group-item {
     padding: 24px 20px;

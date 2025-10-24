@@ -51,6 +51,60 @@ class UIController {
         document.getElementById('setupScreen').classList.add('hidden');
     }
 
+    // Playlist Selector Screen
+    showPlaylistSelector() {
+        const screen = document.getElementById('playlistSelector');
+        document.getElementById('selectorTitle').textContent = this.t('selectPlaylist');
+        document.getElementById('selectorAddNewHint').textContent = this.t('addNewList');
+        this.renderPlaylists();
+        screen.classList.remove('hidden');
+    }
+
+    hidePlaylistSelector() {
+        document.getElementById('playlistSelector').classList.add('hidden');
+    }
+
+    renderPlaylists() {
+        const selectorList = document.getElementById('selectorList');
+        selectorList.innerHTML = '';
+
+        if (this.appState.playlists.length === 0) {
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'empty-state';
+            emptyDiv.innerHTML = `
+                <div class="empty-icon">📺</div>
+                <div>${this.t('noPlaylists')}</div>
+            `;
+            selectorList.appendChild(emptyDiv);
+            return;
+        }
+
+        this.appState.playlists.forEach((playlist, index) => {
+            const div = document.createElement('div');
+            div.className = 'playlist-item';
+            div.dataset.playlistId = playlist.id;
+
+            if (index === 0) {
+                div.classList.add('focused');
+            }
+
+            div.innerHTML = `
+                <div class="playlist-icon">📋</div>
+                <div class="playlist-info">
+                    <div class="playlist-name">${playlist.name}</div>
+                    <div class="playlist-url">${this.truncateUrl(playlist.url)}</div>
+                </div>
+            `;
+
+            selectorList.appendChild(div);
+        });
+    }
+
+    truncateUrl(url, maxLength = 60) {
+        if (url.length <= maxLength) return url;
+        return url.substring(0, maxLength - 3) + '...';
+    }
+
     // Main App
     showMainApp() {
         this.updateFooter();

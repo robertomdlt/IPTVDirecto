@@ -27,8 +27,8 @@ async function initializeApp() {
         return;
     }
 
-    // Load first playlist and show main app
-    await loadPlaylist(appState.playlists[0]);
+    // Show playlist selector instead of loading first playlist automatically
+    ui.showPlaylistSelector();
 }
 
 /**
@@ -67,7 +67,7 @@ function setupEventListeners() {
         if (appState.playlists.length === 0) {
             ui.showSetup();
         } else {
-            loadPlaylist(appState.playlists[0]);
+            ui.showPlaylistSelector();
         }
     });
 
@@ -87,19 +87,71 @@ function setupEventListeners() {
 
         const playlist = appState.addPlaylist(url, name);
         ui.hideSetup();
-        await loadPlaylist(playlist);
+        ui.showPlaylistSelector();
     });
 
     document.getElementById('btnCancelSetup').addEventListener('click', function() {
         if (appState.playlists.length > 0) {
             ui.hideSetup();
-            loadPlaylist(appState.playlists[0]);
+            ui.showPlaylistSelector();
         }
     });
 
     // Keyboard navigation
     document.addEventListener('keydown', function(event) {
         console.log('Key pressed:', event.key, event.keyCode);
+
+        // Check if we're in playlist selector screen
+        const playlistSelector = document.getElementById('playlistSelector');
+        const isPlaylistSelectorVisible = playlistSelector && !playlistSelector.classList.contains('hidden');
+
+        if (isPlaylistSelectorVisible) {
+            // Playlist selector navigation
+            const selectorList = document.getElementById('selectorList');
+            const items = Array.from(selectorList.children).filter(el => el.classList.contains('playlist-item'));
+
+            if (items.length > 0) {
+                const currentIndex = items.findIndex(item => item.classList.contains('focused'));
+
+                switch(event.key) {
+                    case 'ArrowUp':
+                        if (currentIndex > 0) {
+                            items[currentIndex].classList.remove('focused');
+                            items[currentIndex - 1].classList.add('focused');
+                            items[currentIndex - 1].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if (currentIndex < items.length - 1) {
+                            items[currentIndex].classList.remove('focused');
+                            items[currentIndex + 1].classList.add('focused');
+                            items[currentIndex + 1].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
+                        break;
+                    case 'Enter':
+                        // Load selected playlist
+                        const selectedItem = items[currentIndex];
+                        if (selectedItem) {
+                            const playlistId = selectedItem.dataset.playlistId;
+                            const playlist = appState.playlists.find(p => p.id === playlistId);
+                            if (playlist) {
+                                ui.hidePlaylistSelector();
+                                loadPlaylist(playlist);
+                            }
+                        }
+                        break;
+                }
+            }
+
+            // Green button (404) - Add new list
+            if (event.keyCode === 404) {
+                ui.hidePlaylistSelector();
+                ui.showSetup();
+            }
+
+            event.preventDefault();
+            return;
+        }
 
         // Different behavior when video is playing
         if (appState.isPlaying) {

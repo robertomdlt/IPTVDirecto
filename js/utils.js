@@ -20,6 +20,11 @@ const translations = {
         save: 'Guardar',
         cancel: 'Cancelar',
 
+        // Playlist Selector
+        selectPlaylist: 'Selecciona una Lista',
+        addNewList: 'Agregar Nueva Lista',
+        noPlaylists: 'No hay listas guardadas',
+
         // Loading
         loading: 'Cargando...',
         loadingChannels: 'Cargando canales...',
@@ -68,6 +73,11 @@ const translations = {
         namePlaceholder: 'My List',
         save: 'Save',
         cancel: 'Cancel',
+
+        // Playlist Selector
+        selectPlaylist: 'Select a List',
+        addNewList: 'Add New List',
+        noPlaylists: 'No saved lists',
 
         // Loading
         loading: 'Loading...',

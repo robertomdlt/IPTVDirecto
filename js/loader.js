@@ -53,6 +53,7 @@ class ComponentLoader {
         const components = [
             { path: 'components/loading-screen.html' },
             { path: 'components/disclaimer-screen.html' },
+            { path: 'components/playlist-selector.html' },
             { path: 'components/setup-screen.html' },
             { path: 'components/main-app.html' },
             { path: 'components/video-player.html' },

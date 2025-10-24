@@ -194,6 +194,106 @@ class NavigationController {
             this.ui.stopPlayback();
         }
     }
+
+    /**
+     * Return to channel list from video player
+     */
+    returnToList() {
+        if (this.appState.isPlaying) {
+            if (window.debugLogger) {
+                window.debugLogger.logNavigation('Video Player: Return to List (OK button)');
+            }
+            this.ui.stopPlayback();
+        }
+    }
+
+    /**
+     * Play next channel in current group
+     */
+    nextChannel() {
+        if (!this.appState.isPlaying || !this.appState.currentChannel) {
+            return;
+        }
+
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Video Player: Next Channel');
+        }
+
+        // Get current channels list based on current group
+        let channelsList = [];
+
+        if (this.appState.currentGroup === 'FAVORITES') {
+            channelsList = this.appState.channels.filter(ch =>
+                this.appState.isFavorite(ch.id)
+            );
+        } else {
+            channelsList = this.appState.channels.filter(ch =>
+                ch.groupTitle === this.appState.currentGroup
+            );
+        }
+
+        if (channelsList.length === 0) return;
+
+        // Find current channel index
+        const currentIndex = channelsList.findIndex(ch => ch.id === this.appState.currentChannel.id);
+
+        if (currentIndex === -1) return;
+
+        // Get next channel (circular)
+        const nextIndex = (currentIndex + 1) % channelsList.length;
+        const nextChannel = channelsList[nextIndex];
+
+        // Play next channel
+        this.ui.playChannel(nextChannel);
+
+        if (window.debugLogger) {
+            window.debugLogger.log(`Switched to: ${nextChannel.name}`, 'info');
+        }
+    }
+
+    /**
+     * Play previous channel in current group
+     */
+    previousChannel() {
+        if (!this.appState.isPlaying || !this.appState.currentChannel) {
+            return;
+        }
+
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Video Player: Previous Channel');
+        }
+
+        // Get current channels list based on current group
+        let channelsList = [];
+
+        if (this.appState.currentGroup === 'FAVORITES') {
+            channelsList = this.appState.channels.filter(ch =>
+                this.appState.isFavorite(ch.id)
+            );
+        } else {
+            channelsList = this.appState.channels.filter(ch =>
+                ch.groupTitle === this.appState.currentGroup
+            );
+        }
+
+        if (channelsList.length === 0) return;
+
+        // Find current channel index
+        const currentIndex = channelsList.findIndex(ch => ch.id === this.appState.currentChannel.id);
+
+        if (currentIndex === -1) return;
+
+        // Get previous channel (circular)
+        const previousIndex = (currentIndex - 1 + channelsList.length) % channelsList.length;
+        const previousChannel = channelsList[previousIndex];
+
+        // Play previous channel
+        this.ui.playChannel(previousChannel);
+
+        if (window.debugLogger) {
+            window.debugLogger.log(`Switched to: ${previousChannel.name}`, 'info');
+        }
+    }
 }
 
 // Export for use in other modules

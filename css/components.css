@@ -37,9 +37,10 @@
     display: inline-block;
 }
 
-.color-yellow { background: #FFD700; }
-.color-green { background: #4CAF50; }
 .color-red { background: #F44336; }
+.color-green { background: #4CAF50; }
+.color-yellow { background: #FFD700; }
+.color-blue { background: #2196F3; }
 
 /* Form Components */
 .form-group {

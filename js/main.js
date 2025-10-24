@@ -101,37 +101,68 @@ function setupEventListeners() {
     document.addEventListener('keydown', function(event) {
         console.log('Key pressed:', event.key, event.keyCode);
 
-        switch(event.key) {
-            case 'ArrowUp':
-                navigation.moveFocusUp();
-                if (appState.isPlaying && appState.showOverlay) {
-                    ui.autoHideOverlay();
-                }
-                break;
-            case 'ArrowDown':
-                navigation.moveFocusDown();
-                if (appState.isPlaying && appState.showOverlay) {
-                    ui.autoHideOverlay();
-                }
-                break;
-            case 'ArrowLeft':
-                navigation.moveFocusLeft();
-                break;
-            case 'ArrowRight':
-                navigation.moveFocusRight();
-                break;
-            case 'Enter':
-                navigation.selectCurrent();
-                break;
-            case 'Backspace': // Back button
-            case 'Escape':
-                navigation.handleBack();
-                break;
+        // Different behavior when video is playing
+        if (appState.isPlaying) {
+            switch(event.key) {
+                case 'ArrowUp':
+                    navigation.previousChannel();
+                    break;
+                case 'ArrowDown':
+                    navigation.nextChannel();
+                    break;
+                case 'Enter':
+                    navigation.returnToList();
+                    break;
+                case 'Backspace': // Back button
+                case 'Escape':
+                    navigation.handleBack();
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    // Show overlay on left/right during playback
+                    if (appState.showOverlay) {
+                        ui.autoHideOverlay();
+                    }
+                    break;
+            }
+        } else {
+            // Normal navigation when not playing
+            switch(event.key) {
+                case 'ArrowUp':
+                    navigation.moveFocusUp();
+                    break;
+                case 'ArrowDown':
+                    navigation.moveFocusDown();
+                    break;
+                case 'ArrowLeft':
+                    navigation.moveFocusLeft();
+                    break;
+                case 'ArrowRight':
+                    navigation.moveFocusRight();
+                    break;
+                case 'Enter':
+                    navigation.selectCurrent();
+                    break;
+                case 'Backspace': // Back button
+                case 'Escape':
+                    navigation.handleBack();
+                    break;
+            }
         }
 
         // Handle colored buttons (webOS remote)
-        // Yellow button (406)
-        if (event.keyCode === 406) {
+        // Red button (403)
+        if (event.keyCode === 403) {
+            // Reserved for future use
+        }
+
+        // Green button (404)
+        if (event.keyCode === 404) {
+            ui.showSettings();
+        }
+
+        // Yellow button (405)
+        if (event.keyCode === 405) {
             navigation.toggleFavorite();
             if (appState.isPlaying) {
                 ui.showVideoOverlay();
@@ -139,15 +170,18 @@ function setupEventListeners() {
             }
         }
 
-        // Green button (405)
-        if (event.keyCode === 405) {
-            ui.showSettings();
+        // Blue button (406)
+        if (event.keyCode === 406) {
+            // Reserved for future use
         }
 
-        // Show overlay on any button press during playback
+        // Show overlay on button press during playback (except navigation keys)
         if (appState.isPlaying && !appState.showOverlay) {
-            ui.showVideoOverlay();
-            ui.autoHideOverlay();
+            const navigationKeys = ['ArrowUp', 'ArrowDown', 'Enter', 'Backspace', 'Escape'];
+            if (!navigationKeys.includes(event.key)) {
+                ui.showVideoOverlay();
+                ui.autoHideOverlay();
+            }
         }
 
         event.preventDefault();

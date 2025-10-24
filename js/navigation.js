@@ -12,6 +12,10 @@ class NavigationController {
      * Move focus up within current panel
      */
     moveFocusUp() {
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Navigation: Move Focus Up');
+        }
+
         if (!this.appState.isPlaying) {
             const panel = this.appState.focusedPanel === 'left'
                 ? document.getElementById('leftPanel')
@@ -34,6 +38,10 @@ class NavigationController {
      * Move focus down within current panel
      */
     moveFocusDown() {
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Navigation: Move Focus Down');
+        }
+
         if (!this.appState.isPlaying) {
             const panel = this.appState.focusedPanel === 'left'
                 ? document.getElementById('leftPanel')
@@ -56,6 +64,10 @@ class NavigationController {
      * Move focus from right panel to left panel
      */
     moveFocusLeft() {
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Navigation: Move Focus Left (Right → Left Panel)');
+        }
+
         if (!this.appState.isPlaying && this.appState.focusedPanel === 'right') {
             const rightPanel = document.getElementById('rightPanel');
             const leftPanel = document.getElementById('leftPanel');
@@ -79,6 +91,10 @@ class NavigationController {
      * Move focus from left panel to right panel
      */
     moveFocusRight() {
+        if (window.debugLogger) {
+            window.debugLogger.logNavigation('Navigation: Move Focus Right (Left → Right Panel)');
+        }
+
         if (!this.appState.isPlaying && this.appState.focusedPanel === 'left') {
             const leftPanel = document.getElementById('leftPanel');
             const rightPanel = document.getElementById('rightPanel');

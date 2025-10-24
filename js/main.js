@@ -156,8 +156,9 @@ function setupEventListeners() {
 
 /**
  * Application entry point
+ * Wait for components to load before initializing
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('componentsLoaded', function() {
     initializeApp();
     setupEventListeners();
 });

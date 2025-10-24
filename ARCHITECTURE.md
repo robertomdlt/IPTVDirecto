@@ -8,10 +8,19 @@ This document describes the modular architecture of IPTV Directo after refactori
 
 ```
 IptvDirecto/
-├── index.html                 # Main HTML file (clean, modular)
+├── index.html                 # Main HTML file (ultra-clean, 31 lines)
 ├── index.html.backup          # Original monolithic version (backup)
 ├── appinfo.json              # webOS app configuration
 ├── sample-playlist.m3u       # Sample M3U for testing
+│
+├── components/               # HTML Component Templates
+│   ├── loading-screen.html  # Loading spinner screen
+│   ├── disclaimer-screen.html # Legal disclaimer screen
+│   ├── setup-screen.html    # First-time setup form
+│   ├── main-app.html        # Dual-panel main interface
+│   ├── video-player.html    # Video player with overlay
+│   ├── settings-modal.html  # Settings modal dialog
+│   └── toast.html           # Toast notification
 │
 ├── css/                      # Stylesheets
 │   ├── styles.css           # Global styles, variables, utilities
@@ -19,6 +28,7 @@ IptvDirecto/
 │   └── components.css       # UI component styles
 │
 ├── js/                       # JavaScript modules
+│   ├── loader.js            # ComponentLoader - dynamic HTML loading
 │   ├── utils.js             # Translations and utility functions
 │   ├── state.js             # AppState class - state management
 │   ├── parser.js            # M3UParser class - M3U parsing
@@ -40,11 +50,21 @@ IptvDirecto/
 
 ### HTML
 
-**index.html** (123 lines)
-- Clean HTML structure
+**index.html** (31 lines)
+- Ultra-clean HTML structure
 - Imports CSS stylesheets
-- Imports JavaScript modules
-- Contains only markup, no inline styles or scripts
+- Imports JavaScript modules (including loader.js)
+- Contains NO markup - all components loaded dynamically
+- Only structure: `<head>` with resources and empty `<body>`
+
+**HTML Components** (components/ folder)
+- `loading-screen.html` - Loading spinner with animated icon
+- `disclaimer-screen.html` - Legal disclaimer with accept/exit buttons
+- `setup-screen.html` - Form to add first M3U playlist
+- `main-app.html` - Dual-panel layout with groups, channels, and footer
+- `video-player.html` - Video element with overlay controls
+- `settings-modal.html` - Settings menu modal
+- `toast.html` - Toast notification element
 
 ### CSS Files
 
@@ -73,6 +93,15 @@ IptvDirecto/
 - Toast notifications
 
 ### JavaScript Modules
+
+**js/loader.js**
+- `ComponentLoader` class
+- Methods:
+  - `loadComponent(path)` - Fetch single HTML component
+  - `loadComponents(array)` - Load multiple components
+  - `loadAllComponents()` - Load all app components
+- Dispatches `componentsLoaded` event when complete
+- Must load BEFORE other application scripts
 
 **js/utils.js**
 - Translation strings (Spanish and English)
@@ -133,7 +162,13 @@ IptvDirecto/
 
 ### Initialization Flow
 ```
-DOMContentLoaded
+DOMContentLoaded (loader.js)
+  → ComponentLoader.loadAllComponents()
+    → Fetch all HTML components from components/ folder
+    → Insert components into DOM
+    → Dispatch 'componentsLoaded' event
+
+componentsLoaded event (main.js)
   → initializeApp()
     → new AppState()
     → new UIController(appState)
@@ -182,6 +217,8 @@ User selects channel
 ## Class Dependencies
 
 ```
+ComponentLoader (loads HTML)
+  ↓
 AppState (independent)
   ↓
 UIController(appState)
@@ -190,6 +227,23 @@ NavigationController(appState, ui)
   ↓
 main.js (uses all classes)
 ```
+
+## Component Loading System
+
+The application uses a dynamic component loading system that separates HTML markup into individual files:
+
+**How it works:**
+1. `index.html` loads `loader.js` first
+2. `loader.js` fetches all HTML components via `fetch()`
+3. Components are inserted into the DOM dynamically
+4. Once complete, `componentsLoaded` event is dispatched
+5. `main.js` waits for this event before initializing the app
+
+**Benefits:**
+- **Separation of Concerns**: HTML structure separate from logic
+- **Maintainability**: Each screen/component in its own file
+- **Modularity**: Easy to add/remove/modify components
+- **Clean index.html**: Only 31 lines, pure structure
 
 ## LocalStorage Keys
 
@@ -231,12 +285,18 @@ main.js (uses all classes)
 - JavaScript: ~825 lines inline
 - HTML: ~108 lines
 
-**After**: Organized structure
+**After (Phase 1)**: Organized structure
 - `index.html`: 123 lines (clean HTML only)
 - `css/`: 3 files, ~400 lines total
 - `js/`: 6 files, ~700 lines total
 
-**Size Reduction**: ~85% reduction in main HTML file size
+**After (Phase 2)**: Component-based structure
+- `index.html`: 31 lines (ultra-clean, no markup)
+- `components/`: 7 HTML component files
+- `css/`: 3 files, ~400 lines total
+- `js/`: 7 files (added loader.js), ~800 lines total
+
+**Size Reduction**: ~97% reduction in main HTML file size (1,450 → 31 lines)
 
 ### Backward Compatibility
 

@@ -11,106 +11,17 @@
     <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen hidden">
-        <div class="spinner"></div>
-        <div class="loading-text" id="loadingText">Cargando...</div>
-    </div>
-
-    <!-- Disclaimer Screen -->
-    <div id="disclaimerScreen" class="disclaimer-screen hidden">
-        <div class="disclaimer-content">
-            <h1 class="disclaimer-title" id="disclaimerTitle">Aviso Legal</h1>
-            <div class="disclaimer-text" id="disclaimerText">
-                Esta aplicación no proporciona ni respalda ninguna lista IPTV. Los usuarios son responsables de la legalidad de sus fuentes de contenido. Los desarrolladores no asumen ninguna responsabilidad por el contenido proporcionado por el usuario.
-                <br><br>
-                Al continuar, acepta estos términos.
-            </div>
-            <div class="disclaimer-buttons">
-                <button class="btn btn-primary focused" id="btnAcceptDisclaimer">Aceptar</button>
-                <button class="btn" id="btnExitApp">Salir</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Setup Screen -->
-    <div id="setupScreen" class="setup-screen hidden">
-        <div class="setup-content">
-            <h1 class="setup-title" id="setupTitle">Agregar tu Lista IPTV</h1>
-            <div class="form-group">
-                <label class="form-label" id="labelUrl">URL de la Lista M3U</label>
-                <input type="text" class="form-input focused" id="inputPlaylistUrl" placeholder="http://ejemplo.com/playlist.m3u">
-            </div>
-            <div class="form-group">
-                <label class="form-label" id="labelName">Nombre de la Lista (opcional)</label>
-                <input type="text" class="form-input" id="inputPlaylistName" placeholder="Mi Lista">
-            </div>
-            <div class="form-buttons">
-                <button class="btn btn-primary" id="btnSavePlaylist">Guardar</button>
-                <button class="btn" id="btnCancelSetup">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main App -->
-    <div id="mainApp" class="app-container hidden">
-        <div class="dual-panel">
-            <!-- Left Panel: Groups -->
-            <div class="left-panel" id="leftPanel">
-                <!-- Groups will be populated here dynamically -->
-            </div>
-
-            <!-- Right Panel: Channels -->
-            <div class="right-panel" id="rightPanel">
-                <!-- Channels will be populated here dynamically -->
-            </div>
-        </div>
-
-        <!-- Footer Help Bar -->
-        <div class="footer-bar">
-            <div class="footer-button">
-                <span class="color-btn color-yellow"></span>
-                <span id="footerFavorites">Favoritos</span>
-            </div>
-            <div class="footer-button">
-                <span class="color-btn color-green"></span>
-                <span id="footerSettings">Ajustes</span>
-            </div>
-            <div class="footer-button">
-                <span class="color-btn color-red"></span>
-                <span id="footerBack">Volver</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Player -->
-    <div id="videoPlayer" class="video-player hidden">
-        <video id="videoElement" autoplay></video>
-        <div class="video-overlay" id="videoOverlay">
-            <div class="video-channel-name" id="videoChannelName">Canal Name</div>
-            <div class="video-program-info" id="videoProgramInfo">Programa actual</div>
-            <div class="video-controls">
-                <span id="videoFavoriteHint">🟡 Agregar a Favoritos</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <h2 class="modal-title" id="settingsTitle">Ajustes</h2>
-            <div id="settingsItems">
-                <!-- Settings items will be populated here dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
+    <!-- Components will be loaded here dynamically by loader.js -->
 
     <!-- webOS TV SDK -->
     <script src="webOSTVjs-1.2.10/webOSTV.js"></script>
     <script src="webOSTVjs-1.2.10/webOSTV-dev.js"></script>
+
+    <!-- Configuration (must load before everything) -->
+    <script src="config.js"></script>
+
+    <!-- Component Loader (must load after config) -->
+    <script src="js/loader.js"></script>
 
     <!-- Application Scripts -->
     <script src="js/utils.js"></script>
@@ -119,5 +30,8 @@
     <script src="js/ui.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Debug System (load last) -->
+    <script src="js/debug.js"></script>
 </body>
 </html>
